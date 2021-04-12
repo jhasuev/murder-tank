@@ -4,3 +4,12 @@ export const setBgCover = (scene, image) => {
 
   return image.setScale(Math.max(scaleX, scaleY))
 }
+
+export const createBackground = (scene, texture, frame) => {
+  const sceneWidth = scene.game.config.width
+  const sceneHeight = scene.game.config.height
+
+  const bg = scene.add.image(sceneWidth / 2, sceneHeight / 2, texture, frame)
+
+  return setBgCover(scene, bg)
+}
