@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import BootScene from "./scenes/BootScene"
 import PreloadScene from "./scenes/PreloadScene"
 import MenuScene from "./scenes/MenuScene"
+import SettingsScene from "./scenes/SettingsScene"
+import AboutScene from "./scenes/AboutScene"
 
 const config = {
     type: Phaser.AUTO,
@@ -15,6 +17,8 @@ const config = {
         BootScene,
         PreloadScene,
         MenuScene,
+        SettingsScene,
+        AboutScene,
     ],
 };
 

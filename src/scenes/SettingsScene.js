@@ -1,14 +1,14 @@
 import * as Helper from "../helpers"
 import Buttons from "../classes/Buttons"
 
-export default class MenuScene extends Phaser.Scene {
+export default class SettingsScene extends Phaser.Scene {
   constructor() {
-    super("Menu")
+    super("Settings")
   }
 
   create() {
     Helper.createBackground(this, "bg")
-    Helper.createSceneTitle(this, "Меню")
+    Helper.createSceneTitle(this, "Настройки")
     this.createButtons()
 
     this.input.on("gameobjectdown", this.onButtonClicked, this)
@@ -16,18 +16,14 @@ export default class MenuScene extends Phaser.Scene {
 
   onButtonClicked(pointer, object) {
     switch (object.buttonObject.type) {
-      case "play":
-        // go to GameScene
+      case "soundsOn":
         break;
 
-      case "settings":
-        // go to SettingsScene
-        this.scene.start("Settings")
+      case "soundsOff":
         break;
-        
-      case "about":
-        // go to AboutScene
-        this.scene.start("About")
+
+      case "back":
+        this.scene.start("Menu")
         break;
     }
   }
@@ -35,16 +31,16 @@ export default class MenuScene extends Phaser.Scene {
   createButtons() {
     const buttons = [
       {
-        text: "Играть",
-        type: "play",
+        text: "Включить звук",
+        type: "soundsOn",
       },
       {
-        text: "Настройки",
-        type: "settings",
+        text: "Выключить звук",
+        type: "soundsOff",
       },
       {
-        text: "Об игре",
-        type: "about",
+        text: "<= Вернуться назад",
+        type: "back",
       },
     ]
 
