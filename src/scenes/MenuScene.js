@@ -17,16 +17,17 @@ export default class MenuScene extends Phaser.Scene {
   onButtonClicked(pointer, object) {
     switch (object.buttonObject.type) {
       case "play":
-        // go to GameScene
+        // на сцену выбора колличество игроков
+        this.scene.start("PlayerCount")
         break;
 
       case "settings":
-        // go to SettingsScene
+        // на сцену настроек
         this.scene.start("Settings")
         break;
         
       case "about":
-        // go to AboutScene
+        // на сцену об игре
         this.scene.start("About")
         break;
     }

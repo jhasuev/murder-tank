@@ -11,6 +11,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.LoadingBar = new LoadingBar(this)
 
     // тут будем загружать ассеты
+    this.load.image("map_preview_1", require("../assets/img/map_preview_1.png"))
   }
 
   create() {

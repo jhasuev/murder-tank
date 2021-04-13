@@ -4,6 +4,9 @@ import PreloadScene from "./scenes/PreloadScene"
 import MenuScene from "./scenes/MenuScene"
 import SettingsScene from "./scenes/SettingsScene"
 import AboutScene from "./scenes/AboutScene"
+import PlayerCountScene from "./scenes/PlayerCountScene"
+import MapsScene from "./scenes/MapsScene"
+import GameScene from "./scenes/GameScene"
 
 const config = {
     type: Phaser.AUTO,
@@ -19,6 +22,9 @@ const config = {
         MenuScene,
         SettingsScene,
         AboutScene,
+        PlayerCountScene,
+        MapsScene,
+        GameScene,
     ],
 };
 
