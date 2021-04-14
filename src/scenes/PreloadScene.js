@@ -12,9 +12,11 @@ export default class PreloadScene extends Phaser.Scene {
 
     // тут будем загружать ассеты
     this.load.image("map_preview_1", require("../assets/img/map_preview_1.png"))
+    this.load.spritesheet("tilesetPng", require("../assets/img/maps/tileset.png"), { frameWidth: 128, frameHeight: 128 })
+    this.load.tilemapTiledJSON("tilemap_1", require("../assets/img/maps/tilemap_1.json"))
   }
 
   create() {
-    this.scene.start("Menu")
+    this.scene.start("Game")
   }
 }
