@@ -26,6 +26,13 @@ const config = {
         MapsScene,
         GameScene,
     ],
+    physics: {
+        default: "matter",
+        matter: {
+            debug: true,
+            gravity: { x: 0, y: 0 },
+        },
+    },
 };
 
 const game = new Phaser.Game(config);

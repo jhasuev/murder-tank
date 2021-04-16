@@ -11,7 +11,19 @@ export default class Map {
   }
 
   create() {
+    this.createLayers()
+    this.createCollisions()
+  }
+
+  createLayers() {
     this.tilemap.createStaticLayer("sand", this.tileset)
     this.tilemap.createStaticLayer("road", this.tileset)
+  }
+
+  createCollisions() {
+    this.tilemap.findObject("collisions", collision => {
+      const sprite = this.scene.matter.add.sprite(collision.x + collision.width / 2, collision.y - collision.height / 2, "objects", collision.name)
+      sprite.setStatic(true)
+    })
   }
 }
