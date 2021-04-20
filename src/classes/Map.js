@@ -1,3 +1,8 @@
+const SAND_FRICTION = .5
+const FRICTIONS = {
+  road: 1,
+}
+
 export default class Map {
   constructor(scene) {
     this.scene = scene
@@ -25,5 +30,13 @@ export default class Map {
       const sprite = this.scene.matter.add.sprite(collision.x + collision.width / 2, collision.y - collision.height / 2, "objects", collision.name)
       sprite.setStatic(true)
     })
+  }
+
+  getTileFriction(car) {
+    for (let road in FRICTIONS) {
+      let tile = this.tilemap.getTileAtWorldXY(car.x, car.y, false, this.scene.cameras.main, road)
+      if (tile) return FRICTIONS[road]
+    }
+    return SAND_FRICTION
   }
 }
