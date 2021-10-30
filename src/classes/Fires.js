@@ -17,9 +17,7 @@ export default class Fires {
       let fire = new Fire(this.scene, source)
       this.add(fire)
     } else {
-      let fire = new Fire(this.scene, source)
-      this.add(fire)
-      // fire.restart(source)
+      fire.restart(source)
     }
   }
 

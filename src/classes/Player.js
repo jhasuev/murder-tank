@@ -9,6 +9,8 @@ export default class Player {
     this.map = map
 
     this.car = this.scene.matter.add.sprite(0, 0, "objects", "tank_green")
+    this.car.name = 'npc'
+    this.car.classObject = this
     this.car.setX(111)
     this.car.setY(111)
     this.car.setFixedRotation(true)

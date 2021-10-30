@@ -1,7 +1,9 @@
 export default class Fire {
   constructor(scene, data) {
     this.scene = scene
-    this.create(Fire.generateData(data))
+    this.fire = this.create(Fire.generateData(data))
+    this.fire.classObject = this
+    this.fire.name = "fire"
   }
 
   static generateData(source) {
@@ -21,10 +23,21 @@ export default class Fire {
   }
 
   create(data) {
-    if (!this.fire) {
-      this.fire = this.scene.matter.add.sprite(data.x, data.y, data.texture, data.frame)
-      this.fire.setAngle(data.angle)
-    }
+    const fire = this.scene.matter.add.sprite(data.x, data.y, data.texture, data.frame)
+    fire.setAngle(data.angle)
+    
+    return fire
+  }
+
+  restart(source) {
+    const data = Fire.generateData(source)
+    this.fire.setX(data.x)
+    this.fire.setY(data.y)
+    this.fire.setTexture(data.texture)
+    this.fire.setFrame(data.frame)
+    this.fire.setAngle(data.angle)
+
+    this.setAlive(true)
   }
 
   getVelocity(velocity) {
@@ -52,5 +65,11 @@ export default class Fire {
       this.fire.setAngularVelocity(0)
       this.fire.setVelocity(0, 0)
     }
+  }
+
+  boom() {
+    // TODO: добавить анимацию взрыва?
+    console.log('boom')
+    this.setAlive(false)
   }
 }

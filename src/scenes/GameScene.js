@@ -10,6 +10,8 @@ export default class GameScene extends Phaser.Scene {
   init() {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.cursors.space.on("down", this.onSpaceDown.bind(this))
+
+    this.addCollision()
   }
 
   create(map) {
@@ -23,6 +25,36 @@ export default class GameScene extends Phaser.Scene {
 
   onSpaceDown() {
     this.player.fire()
+  }
+  
+  addCollision() {
+    this.matter.world.on('collisionstart', this.onCollision.bind(this));
+  }
+
+  onCollision(event, bodyA, bodyB) {
+    let fire = this.getCollidedObject(bodyA, bodyB, 'fire')
+    let npc = this.getCollidedObject(bodyA, bodyB, 'npc')
+    
+    if (fire) {
+      // есть пуля...
+      fire.boom()
+    }
+
+    if (fire && npc) {
+      // попали по врагу или враг по нам
+    }
+
+    console.log(event, bodyA, bodyB)
+  }
+
+  getCollidedObject(bodyA, bodyB, name) {
+    if (bodyA.gameObject.name === name) {
+      return bodyA.gameObject.classObject
+    } else if (bodyB.gameObject.name === name) {
+      return bodyB.gameObject.classObject
+    }
+
+    return null
   }
 
   update() {
