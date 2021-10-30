@@ -8,9 +8,25 @@ export default class Player {
     this.scene = scene
     this.map = map
 
-    this.car = this.scene.matter.add.sprite(100, 100, "objects", "tank_green")
+    this.car = this.scene.matter.add.sprite(0, 0, "objects", "tank_green")
+    this.car.setX(111)
+    this.car.setY(111)
     this.car.setFixedRotation(true)
-    this._velocity = 0
+    // this.car.setOrigin(.5)
+    // console.log('this.car.setOriginScale', this.car.setOriginScale)
+    // this.car.setOriginScale(0)
+    // let radius = 0
+    // setInterval(() => {
+    //   this.car.setAngle(radius)
+    //   if (++radius > 360) {
+    //     radius = 0
+    //   }
+    // }, 11)
+    this.car.setAngle(90)
+    // console.log('=======');
+    // console.log(this.car.angle);
+    // console.log('=======');
+    this._velocity = 1
 
     this.scene.events.on("update", this.update, this)
   }
@@ -67,6 +83,11 @@ export default class Player {
 
   update() {
     this.move()
+  }
+
+  fire() {
+    console.log(111111111)
+    this.scene.fires.create(this.car)
   }
 
   move() {
