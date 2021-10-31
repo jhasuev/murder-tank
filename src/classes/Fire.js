@@ -1,3 +1,5 @@
+const FIRE_VELOCITY = 11
+
 export default class Fire {
   constructor(scene, data) {
     this.scene = scene
@@ -45,13 +47,22 @@ export default class Fire {
     return vec2.setToPolar(this.fire.rotation - Math.PI / 2, velocity)
   }
 
-  move(coords = null) {
-    if (!coords) {
-      coords = this.getVelocity(11)
-    }
+  move() {
+    const coords = this.getVelocity(FIRE_VELOCITY)
 
     this.fire.setX(this.fire.x + coords.x)
     this.fire.setY(this.fire.y + coords.y)
+
+    // если пуля находится за пределами экрана - убираем
+    // TODO: посмотреть, есть ли у Phaser уже готовый метод/способ узнать это...
+    if (
+      this.fire.x < 0
+      || this.fire.x > this.scene.map.tilemap.widthInPixels
+      || this.fire.y < 0
+      || this.fire.y > this.scene.map.tilemap.heightInPixels
+    ) {
+      this.setAlive(false)
+    }
   }
 
   setAlive(state) {
