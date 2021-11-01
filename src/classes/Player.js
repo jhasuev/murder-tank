@@ -12,18 +12,22 @@ export default class Player {
   constructor(scene, map) {
     this.scene = scene
     this.map = map
-
-    this.car = this.scene.matter.add.sprite(0, 0, "objects", "tank_green")
-    this.car.name = 'npc'
-    this.car.classObject = this
-    this.car.setX(111)
-    this.car.setY(111)
-    this.car.setFixedRotation(true)
-    this.car.setAngle(90)
     this._velocity = 1
+
+    this.addCar()
     this.addXp()
 
     this.scene.events.on("update", this.update, this)
+  }
+  
+  addCar() {
+    this.car = this.scene.matter.add.sprite(0, 0, "objects", "tank_green")
+    this.car.name = 'npc'
+    this.car.classObject = this
+    this.car.setFixedRotation(true)
+
+    this.car.setX(111)
+    this.car.setY(111)
   }
 
   get direction() {
@@ -124,7 +128,6 @@ export default class Player {
   }
 
   fire() {
-    console.log(111111111)
     this.scene.fires.create(this.car)
   }
 

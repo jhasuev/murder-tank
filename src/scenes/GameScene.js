@@ -43,8 +43,6 @@ export default class GameScene extends Phaser.Scene {
     if (fire && npc) {
       // попали по врагу или враг по нам
     }
-
-    console.log(event, bodyA, bodyB)
   }
 
   getCollidedObject(bodyA, bodyB, name) {
