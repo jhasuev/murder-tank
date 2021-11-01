@@ -1,10 +1,12 @@
 import Phaser from "phaser"
 import Fire from "./Fire"
+const INITIAL_BULLET_COUNT = 5
 
 export default class Fires {
   constructor(scene) {
     this.scene = scene
     this.init()
+    this.count = INITIAL_BULLET_COUNT
   }
   
   init() {
@@ -12,6 +14,10 @@ export default class Fires {
   }
 
   create(source) {
+    if (this.count <= 0) {
+      return
+    }
+
     let fire = this.getFirstDead()
     if (!fire) {
       let fire = new Fire(this.scene, source)
@@ -19,6 +25,8 @@ export default class Fires {
     } else {
       fire.restart(source)
     }
+    
+    --this.count
   }
 
   add(fire) {
