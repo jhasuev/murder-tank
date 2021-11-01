@@ -2,6 +2,11 @@ const DIRECTIONS = { BACKWARD: -1, NONE: 0, FORWARD: 1 }
 const TURNS = { LEFT: -1, NONE: 0, RIGHT: 1 }
 const SPEED = 8
 const ACCELERATION = .5
+const XP_COLORS = {
+  FULL: 0x00FFFF,
+  WARN: 0xFF9900,
+  DANGER: 0xFF0000,
+}
 
 export default class Player {
   constructor(scene, map) {
@@ -14,21 +19,9 @@ export default class Player {
     this.car.setX(111)
     this.car.setY(111)
     this.car.setFixedRotation(true)
-    // this.car.setOrigin(.5)
-    // console.log('this.car.setOriginScale', this.car.setOriginScale)
-    // this.car.setOriginScale(0)
-    // let radius = 0
-    // setInterval(() => {
-    //   this.car.setAngle(radius)
-    //   if (++radius > 360) {
-    //     radius = 0
-    //   }
-    // }, 11)
     this.car.setAngle(90)
-    // console.log('=======');
-    // console.log(this.car.angle);
-    // console.log('=======');
     this._velocity = 1
+    this.addXp()
 
     this.scene.events.on("update", this.update, this)
   }
@@ -77,6 +70,30 @@ export default class Player {
   get maxSpeed() {
     return this.map.getTileFriction(this.car) * SPEED
   }
+  
+  get currentXpWidth() {
+    return this.xp / 100 * this.car.width
+  }
+
+  get xpX() {
+    return this.car.x + this.car.width / 2
+  }
+
+  get xpY() {
+    return this.car.y - (this.car.height / 2) - this.xpGraphicsBack.height
+  }
+
+  get xpColor() {
+    if (this.xp > 80) {
+      return XP_COLORS.FULL
+    }
+
+    if (this.xp > 40) {
+      return XP_COLORS.WARN
+    }
+
+    return XP_COLORS.DANGER
+  }
 
   getVelocityFromAngle() {
     const vec2 = new Phaser.Math.Vector2()
@@ -85,6 +102,25 @@ export default class Player {
 
   update() {
     this.move()
+    this.updateXp()
+    // this.xp += .1
+  }
+
+  addXp() {
+    this.xp = 27
+
+    this.xpGraphicsBack = this.scene.add.rectangle(0, 0, this.car.width, 8, 0x000000, .5).setOrigin(1)
+    this.xpGraphicsFront = this.scene.add.rectangle(0, 0, this.car.width, 8, 0x000000, 1).setOrigin(1)
+  }
+
+  updateXp() {
+    this.xpGraphicsBack.setX(this.xpX)
+    this.xpGraphicsBack.setY(this.xpY)
+
+    this.xpGraphicsFront.setX(this.xpX)
+    this.xpGraphicsFront.setY(this.xpY)
+    this.xpGraphicsFront.width = this.currentXpWidth
+    this.xpGraphicsFront.setFillStyle(this.xpColor)
   }
 
   fire() {
