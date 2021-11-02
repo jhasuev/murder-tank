@@ -33,6 +33,10 @@ export default class Fires {
     this.fires.push(fire)
   }
 
+  getCount() {
+    return this.count
+  }
+
   getFirstDead() {
     return this.fires.find((fire) => !fire.fire.active)
   }
