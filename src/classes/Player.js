@@ -46,9 +46,9 @@ export default class Player {
     let turn = TURNS.NONE
 
     if (this.scene.cursors.left.isDown) {
-      turn = TURNS.LEFT
+      turn = this.scene.cursors.down.isDown ? TURNS.RIGHT : TURNS.LEFT
     } else if (this.scene.cursors.right.isDown) {
-      turn = TURNS.RIGHT
+      turn = this.scene.cursors.down.isDown ? TURNS.LEFT : TURNS.RIGHT
     }
 
     return turn
