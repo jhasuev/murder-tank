@@ -2,6 +2,7 @@ import Map from "../classes/Map"
 import Player from "../classes/Player"
 import Fires from "../classes/Fires"
 import Ammos from "../classes/Ammos"
+import Aids from "../classes/Aids"
 import Panel from "../classes/Panel"
 
 export default class GameScene extends Phaser.Scene {
@@ -21,12 +22,15 @@ export default class GameScene extends Phaser.Scene {
     this.player = new Player(this, this.map)
     this.fires = new Fires(this)
     this.ammos = new Ammos(this)
+    this.aids = new Aids(this)
     this.panel = new Panel(this)
 
     this.ammos.create({ x: 100, y: 190 })
+    this.aids.create({ x: 300, y: 190 })
 
     setTimeout(() => {
       this.ammos.create({ x: 100, y: 290 })
+      this.aids.create({ x: 300, y: 290 })
     }, 2000);
 
     this.cameras.main.setBounds(0, 0, this.map.tilemap.widthInPixels, this.map.tilemap.heightInPixels)
@@ -45,8 +49,9 @@ export default class GameScene extends Phaser.Scene {
     let fire = this.getCollidedObject(bodyA, bodyB, 'fire')
     let npc = this.getCollidedObject(bodyA, bodyB, 'npc')
     let ammo = this.getCollidedObject(bodyA, bodyB, 'ammo')
+    let aid = this.getCollidedObject(bodyA, bodyB, 'aid')
     
-    if (fire && !ammo) {
+    if (fire && !ammo && !aid) {
       // есть пуля...
       fire.boom()
     }
@@ -59,11 +64,21 @@ export default class GameScene extends Phaser.Scene {
       // игрок взял боеприпасы
       this.playerTakeAmmo(ammo)
     }
+
+    if (aid && npc) {
+      // игрок взял аптечку
+      this.playerTakeAid(aid)
+    }
   }
 
   playerTakeAmmo(ammo) {
     this.fires.addFires(5)
     ammo.take()
+  }
+
+  playerTakeAid(aid) {
+    this.player.addXp(130)
+    aid.take()
   }
 
   getCollidedObject(bodyA, bodyB, name) {

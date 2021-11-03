@@ -15,7 +15,7 @@ export default class Player {
     this._velocity = 1
 
     this.addCar()
-    this.addXp()
+    this.addXpIndicator()
 
     this.scene.events.on("update", this.update, this)
   }
@@ -107,10 +107,10 @@ export default class Player {
   update() {
     this.move()
     this.updateXp()
-    // this.xp += .1
+    this.removeXp(.1)
   }
 
-  addXp() {
+  addXpIndicator() {
     this.xp = 27
 
     this.xpGraphicsBack = this.scene.add.rectangle(0, 0, this.car.width, 8, 0x000000, .5).setOrigin(1)
@@ -125,6 +125,14 @@ export default class Player {
     this.xpGraphicsFront.setY(this.xpY)
     this.xpGraphicsFront.width = this.currentXpWidth
     this.xpGraphicsFront.setFillStyle(this.xpColor)
+  }
+
+  addXp(xp) {
+    this.xp = Math.min(100, this.xp + xp)
+  }
+
+  removeXp(xp) {
+    this.xp = Math.max(0, this.xp - xp)
   }
 
   fire() {
