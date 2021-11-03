@@ -3,10 +3,6 @@ import Ammo from "./Ammo"
 export default class Ammos {
   constructor(scene) {
     this.scene = scene
-    this.init()
-  }
-  
-  init() {
     this.ammos = []
   }
 
@@ -26,17 +22,5 @@ export default class Ammos {
 
   getFirstDead() {
     return this.ammos.find((ammo) => !ammo.ammo.active)
-  }
-
-  move() {
-    this.ammos.forEach((ammo) => {
-      if (ammo.ammo.active) {
-        ammo.move()
-      }
-    })
-  }
-
-  update() {
-    this.move()
   }
 }
