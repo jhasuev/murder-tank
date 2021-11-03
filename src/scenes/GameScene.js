@@ -1,6 +1,7 @@
 import Map from "../classes/Map"
 import Player from "../classes/Player"
 import Fires from "../classes/Fires"
+import Ammos from "../classes/Ammos"
 import Panel from "../classes/Panel"
 
 export default class GameScene extends Phaser.Scene {
@@ -19,7 +20,14 @@ export default class GameScene extends Phaser.Scene {
     this.map = new Map(this)
     this.player = new Player(this, this.map)
     this.fires = new Fires(this)
+    this.ammos = new Ammos(this)
     this.panel = new Panel(this)
+
+    this.ammos.create({ x: 100, y: 190 })
+
+    setTimeout(() => {
+      this.ammos.create({ x: 100, y: 290 })
+    }, 2000);
 
     this.cameras.main.setBounds(0, 0, this.map.tilemap.widthInPixels, this.map.tilemap.heightInPixels)
     this.cameras.main.startFollow(this.player.car)
@@ -36,8 +44,9 @@ export default class GameScene extends Phaser.Scene {
   onCollision(event, bodyA, bodyB) {
     let fire = this.getCollidedObject(bodyA, bodyB, 'fire')
     let npc = this.getCollidedObject(bodyA, bodyB, 'npc')
+    let ammo = this.getCollidedObject(bodyA, bodyB, 'ammo')
     
-    if (fire) {
+    if (fire && !ammo) {
       // есть пуля...
       fire.boom()
     }
@@ -45,6 +54,16 @@ export default class GameScene extends Phaser.Scene {
     if (fire && npc) {
       // попали по врагу или враг по нам
     }
+
+    if (ammo && npc) {
+      // игрок взял боеприпасы
+      this.playerTakeAmmo(ammo)
+    }
+  }
+
+  playerTakeAmmo(ammo) {
+    this.fires.addFires(5)
+    ammo.take()
   }
 
   getCollidedObject(bodyA, bodyB, name) {

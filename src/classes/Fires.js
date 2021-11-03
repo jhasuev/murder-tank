@@ -37,6 +37,10 @@ export default class Fires {
     return this.count
   }
 
+  addFires(count) {
+    this.count += count
+  }
+
   getFirstDead() {
     return this.fires.find((fire) => !fire.fire.active)
   }
