@@ -1,6 +1,6 @@
 import Ammo from "./Ammo"
 
-export default class Fires {
+export default class Ammos {
   constructor(scene) {
     this.scene = scene
     this.init()
@@ -18,16 +18,10 @@ export default class Fires {
     } else {
       ammo.restart(source)
     }
-    
-    --this.count
   }
 
   add(ammo) {
     this.ammos.push(ammo)
-  }
-
-  getCount() {
-    return this.count
   }
 
   getFirstDead() {

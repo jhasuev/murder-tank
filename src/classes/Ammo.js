@@ -1,7 +1,7 @@
-export default class Fire {
+export default class Ammo {
   constructor(scene, data) {
     this.scene = scene
-    this.ammo = this.create(Fire.generateData(data))
+    this.ammo = this.create(Ammo.generateData(data))
     this.ammo.classObject = this
     this.ammo.name = "ammo"
 
@@ -33,7 +33,7 @@ export default class Fire {
   }
 
   restart(source) {
-    const data = Fire.generateData(source)
+    const data = Ammo.generateData(source)
     this.ammo.setX(data.x)
     this.ammo.setY(data.y)
     this.ammo.setTexture(data.texture)
