@@ -1,26 +1,8 @@
-import Ammo from "./Ammo"
+import TakingElements from "./TakingElements"
 
-export default class Ammos {
+export default class Ammos  extends TakingElements {
   constructor(scene) {
-    this.scene = scene
-    this.ammos = []
-  }
-
-  create(source) {
-    let ammo = this.getFirstDead()
-    if (!ammo) {
-      let ammo = new Ammo(this.scene, source)
-      this.add(ammo)
-    } else {
-      ammo.restart(source)
-    }
-  }
-
-  add(ammo) {
-    this.ammos.push(ammo)
-  }
-
-  getFirstDead() {
-    return this.ammos.find((ammo) => !ammo.ammo.active)
+    super(scene)
+    this.elementType = "ammo"
   }
 }
